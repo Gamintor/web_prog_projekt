@@ -1,0 +1,130 @@
+body {
+	font-family: sans-serif;
+	margin: 0;
+	background: #f4f4f4;
+}
+.navbar {
+	background: #333;
+	color: white;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.nav-links {
+	list-style: none;
+	display: flex;
+	gap: 20px;
+}
+.nav-links a {
+	color: white;
+	text-decoration: none;
+	cursor: pointer;
+}
+.container {
+	padding: 20px;
+	max-width: 1200px;
+	margin: auto;
+}
+
+.auth-container {
+	max-width: 300px;
+	margin: 50px auto;
+	text-align: center;
+}
+.auth-container input {
+	width: 90%;
+	margin-bottom: 10px;
+}
+
+/* Grid sustav za responzivnost */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 20px;
+}
+
+/* Kartica knjige */
+.card {
+	background: white;
+	padding: 15px;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+.card img {
+	max-width: 100%;
+	height: auto;
+}
+.card button {
+	background: #007bff;
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	width: 100%;
+	margin-top: 10px;
+}
+.card button:disabled {
+	background: #ccc;
+}
+
+/* Admin forma */
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	max-width: 400px;
+}
+input {
+	padding: 10px;
+	border: 1px solid #ddd;
+}
+
+/* Modal Styles */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+	background-color: white;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 300px;
+	border-radius: 8px;
+	position: relative;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close:hover {
+	color: black;
+}
+
+.btn-delete {
+	background-color: #dc3545 !important;
+}
+.btn-edit {
+	background-color: #ffc107;
+	color: black;
+}
+.btn-save {
+	background-color: #28a745;
+	margin-top: 10px;
+	padding: 10px;
+	cursor: pointer;
+}
