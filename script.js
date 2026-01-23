@@ -23,6 +23,7 @@ function sakrijSve() {
 	document.getElementById('view-register').style.display = 'none';
 	document.getElementById('view-katalog').style.display = 'none';
 	document.getElementById('view-admin').style.display = 'none';
+	document.getElementById('view-posudbe').style.display = 'none';
 }
 
 function prikaziLogin() {
@@ -61,9 +62,10 @@ function azurirajNavigaciju() {
 
 	document.getElementById('nav-katalog').style.display = isLogged ? 'block' : 'none';
 	document.getElementById('nav-logout').style.display = isLogged ? 'block' : 'none';
+	document.getElementById('nav-posudbe').style.display = isLogged && !isAdmin ? 'block' : 'none';
 	document.getElementById('nav-admin').style.display = isAdmin ? 'block' : 'none';
 
-	// User info display
+	// User info
 	document.getElementById('user-display').style.display = isLogged ? 'block' : 'none';
 	if (isLogged) {
 		document.getElementById('current-user-name').innerText = loggedUser.ime + ' (' + loggedUser.role + ')';
@@ -160,7 +162,7 @@ function ucitajKnjige() {
 				} else {
 					akcijskiGumbi = `
                         <button 
-                            onclick="posudiKnjigu('${knjiga.id}', ${knjiga.kolicina})" 
+                            onclick="posudiKnjigu('${knjiga.id}', ${knjiga.kolicina}, '${knjiga.naslov}')" 
                             ${knjiga.kolicina <= 0 ? 'disabled' : ''}>
                             ${knjiga.kolicina > 0 ? 'Posudi' : 'Nedostupno'}
                         </button>
@@ -201,7 +203,7 @@ function dodajKnjigu(e) {
 		});
 }
 
-function posudiKnjigu(id, trenutnaKolicina) {
+function posudiKnjigu(id, trenutnaKolicina, naslov) {
 	if (!confirm('Posudi ovu knjigu?')) return;
 
 	fetch('api/posudi.php', {
@@ -209,6 +211,7 @@ function posudiKnjigu(id, trenutnaKolicina) {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({
 			book_id: id,
+			book_title: naslov,
 			user_name: loggedUser.ime,
 			current_qty: trenutnaKolicina,
 		}),
@@ -277,3 +280,37 @@ window.onclick = function (event) {
 		zatvoriModal();
 	}
 };
+
+function prikaziMojePosudbe() {
+	if(!loggedUser) return prikaziLogin();
+
+	sakrijSve();
+	document.getElementById('view-posudbe').style.display = 'block';
+
+	const lista = document.getElementById('lista-mojih-posudbi');
+	lista.innerHTML = '<tr><td colspan="3">Učitavanje...</td></tr>';
+	
+	fetch(`api/moje_posudbe.php?user_name=${encodeURIComponent(loggedUser.ime)}` )
+		.then(res => res.json())
+		.then(data => {
+			lista.innerHTML = '';
+
+			if(data.length === 0) {
+				lista.innerHTML = '<tr><td colspan="3">Nemate aktivnih posudbi!</td></tr>';
+				return;
+			}
+
+			data.forEach(p => {
+				const tr = document.createElement('tr');
+				const naslov = p.naslov;
+				const statusKlasa = p.status === 'aktivno' ? 'status-aktivno' : 'status-vraceno';
+
+				tr.innerHTML = `
+					<td>${naslov}</td>
+					<td>${new Date(p.datum).toLocaleDateString('hr-HR')}</td>
+				    <td><span class="${statusKlasa}">${p.status || 'aktivno'}</span></td>
+				`;
+				lista.appendChild(tr);
+			});
+		});
+}

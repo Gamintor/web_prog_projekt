@@ -6,6 +6,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, true);
 
 $book_id = $input['book_id'];
+$book_title = $input['book_title'];
 $user_name = $input['user_name'];
 $current_qty = $input['current_qty'];
 
@@ -19,6 +20,7 @@ if ($current_qty > 0) {
     // 2. Kreiraj zapis u LOG tablici (posudbe)
     $logData = [
         "knjiga_id" => $book_id,
+        "naslov" => $book_title,
         "korisnik" => $user_name,
         "datum" => date("Y-m-d H:i:s"),
         "akcija" => "POSUDBA"
