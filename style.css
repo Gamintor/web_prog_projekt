@@ -128,3 +128,34 @@ input {
 	padding: 10px;
 	cursor: pointer;
 }
+
+.posudbe-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+.posudbe-table th, .posudbe-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.posudbe-table th { background-color: #f8f9fa; }
+
+.status-aktivno {
+    color: #856404;
+    background-color: #fff3cd;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.status-vraceno {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
