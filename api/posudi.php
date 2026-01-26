@@ -23,7 +23,8 @@ if ($current_qty > 0) {
         "naslov" => $book_title,
         "korisnik" => $user_name,
         "datum" => date("Y-m-d H:i:s"),
-        "akcija" => "POSUDBA"
+        "akcija" => "POSUDBA",
+        "status" => "aktivno"
     ];
 
     sendToFirebase(FIREBASE_URL . "posudbe.json", 'POST', $logData);

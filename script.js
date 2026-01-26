@@ -50,7 +50,53 @@ function prikaziAdmin() {
 	}
 	sakrijSve();
 	document.getElementById('view-admin').style.display = 'block';
+	ucitajSvePosudbe();
 }
+
+function ucitajSvePosudbe() {
+	fetch('api/dohvati_sve_posudbe.php')
+		.then(res => res.json())
+		.then(data => {
+			const lista = document.getElementById('admin-posudbe-list');
+			lista.innerHTML = '';
+
+			data.forEach(p => {
+				const tr = document.createElement('tr');
+				const jeAktivna = p.status === 'aktivno';
+				console.log(`aktivna: ${jeAktivna}`);
+				console.log(p);
+				
+				tr.innerHTML = `
+					<td>${p.korisnik}</td>
+					<td>${p.naslov}</td>
+					<td>${new Date(p.datum).toLocaleDateString('hr-HR')}</td>
+					<td>
+						<span class="${jeAktivna ? 'status-aktivno' : 'status-vraceno'}">${p.status || 'aktivno'}</span>
+					</td>
+					<td>
+						${jeAktivna ? `<button class="btn-save" onClick="evidentirajPovrat('${p.id}', '${p.knjiga_id}')">Vrati</button>` : '-'}
+					</td>
+				`;
+				lista.appendChild(tr);
+			});
+		});
+}
+
+function evidentirajPovrat(loanID, bookID) {
+	if(!confirm("Potvrdi povrat knjige?")) return;
+
+	fetch('api/vrati_knjigu.php', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({loan_id: loanID, book_id: bookID})
+	})
+	.then(res => res.json())
+	.then(data => {
+		alert(data.message);
+		ucitajSvePosudbe();
+	});
+}
+
 
 function azurirajNavigaciju() {
 	const isLogged = loggedUser !== null;

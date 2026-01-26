@@ -118,13 +118,26 @@ input {
 .btn-delete {
 	background-color: #dc3545 !important;
 }
+
 .btn-edit {
 	background-color: #ffc107;
 	color: black;
 }
+
 .btn-save {
 	background-color: #28a745;
 	margin-top: 10px;
+	padding: 10px;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+
+.btn-save:hover {
+	opacity: 0.9;
+}
+
+#spremiBtn {
 	padding: 10px;
 	cursor: pointer;
 }
