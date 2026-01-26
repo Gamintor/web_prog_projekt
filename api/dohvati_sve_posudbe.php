@@ -14,7 +14,7 @@ if ($posudbe) {
     }
 }
 
-// Vraćamo posudbe poredane tako da su najnovije na vrhu
+// Poredamo posudbe po datumu
 usort($result, function($a, $b) {
     return strtotime($b['datum']) - strtotime($a['datum']);
 });

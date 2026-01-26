@@ -123,8 +123,22 @@
                         placeholder="Količina"
                         required
                     />
-                    <button type="submit">Spremi u bazu</button>
+                    <button type="submit" id="spremiBtn">Spremi u bazu</button>
                 </form>
+                <hr />
+                <h2>Upravljanje posudbama</h2>
+                <table class="posudbe-table">
+                    <thead>
+                        <tr>
+                            <th>Korisnik</th>
+                            <th>Naslov knjige</th>
+                            <th>Datum</th>
+                            <th>Status</th>
+                            <th>Akcija</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-posudbe-list"></tbody>
+                </table>
             </div>
         </div>
         <div id="edit-modal" class="modal">
