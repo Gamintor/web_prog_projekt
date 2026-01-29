@@ -1,87 +1,256 @@
+/* --- DEFINICIJA BOJA I FONTA --- */
+:root {
+    --primary-dark: #0C2C55;
+    --accent-teal: #296374;
+    --light-cyan: #629FAD;
+    --bg-cream: #EDEDCE;       
+    --white: #ffffff;
+    --danger: #e63946;
+    --font-main: 'Josefin Sans', sans-serif;
+}
+
 body {
-	font-family: sans-serif;
-	margin: 0;
-	background: #f4f4f4;
+    font-family: var(--font-main);
+    margin: 0;
+    background-color: var(--bg-cream);
+    color: var(--primary-dark);
 }
+
+/* --- NAVIGACIJA --- */
 .navbar {
-	background: #333;
-	color: white;
-	padding: 1rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+    background: var(--primary-dark);
+    color: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--light-cyan);
+}
+
 .nav-links {
-	list-style: none;
-	display: flex;
-	gap: 20px;
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
 }
+
 .nav-links a {
-	color: white;
-	text-decoration: none;
-	cursor: pointer;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
 }
+
+.nav-links a:hover {
+    color: var(--light-cyan);
+    transform: translateY(-2px);
+}
+
+/* --- KONTEJNER I SEKCIJE --- */
 .container {
-	padding: 20px;
-	max-width: 1200px;
-	margin: auto;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: auto;
 }
 
-.auth-container {
-	max-width: 300px;
-	margin: 50px auto;
-	text-align: center;
-}
-.auth-container input {
-	width: 90%;
-	margin-bottom: 10px;
+h1, h2 {
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-teal);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
 }
 
-/* Grid sustav za responzivnost */
+/* --- KARTICE KNJIGA --- */
 .grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-	gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
 }
 
-/* Kartica knjige */
 .card {
-	background: white;
-	padding: 15px;
-	border-radius: 8px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	text-align: center;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(12, 44, 85, 0.05);
 }
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
 .card img {
-	max-width: 100%;
-	height: auto;
-}
-.card button {
-	background: #007bff;
-	color: white;
-	border: none;
-	padding: 10px;
-	cursor: pointer;
-	width: 100%;
-	margin-top: 10px;
-}
-.card button:disabled {
-	background: #ccc;
+    max-width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 15px;
 }
 
-/* Admin forma */
-form {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	max-width: 400px;
+.card h3 {
+    margin: 10px 0 5px 0;
+    font-size: 1.2rem;
 }
+
+.card p {
+    color: var(--accent-teal);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+/* --- TIPKE (BUTTONS) --- */
+button {
+    font-family: var(--font-main);
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+#spremiBtn {
+	margin: 10px 0;
+}
+
+/* Primarna tipka (Posudi, Spremi) */
+.card button, #spremiBtn, .btn-save {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    width: 100%;
+}
+
+.card button:hover, #spremiBtn:hover, .btn-save:hover {
+    background-color: var(--accent-teal);
+    letter-spacing: 1px;
+}
+
+/* Delete tipka */
+.btn-delete {
+    background-color: transparent !important;
+    color: var(--danger) !important;
+    border: 1px solid var(--danger) !important;
+    margin-top: 5px;
+}
+
+.btn-delete:hover {
+    background-color: var(--danger) !important;
+    color: var(--white) !important;
+}
+
+/* Edit tipka */
+.btn-edit {
+    background-color: var(--light-cyan);
+    color: var(--primary-dark);
+}
+
+.btn-edit:hover {
+    background-color: var(--accent-teal);
+    color: var(--white);
+}
+
+/* Vrati tipka (u tablici) */
+.btn-return {
+    background-color: var(--accent-teal);
+    color: var(--white);
+    padding: 12px 12px;
+}
+
+.btn-return:hover {
+    background-color: var(--primary-dark);
+}
+
+button:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* --- FORME --- */
+.auth-container {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    max-width: 350px;
+    margin: 80px auto;
+}
+
 input {
-	padding: 10px;
-	border: 1px solid #ddd;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: var(--font-main);
 }
 
-/* Modal Styles */
+input:focus {
+    outline: none;
+    border-color: var(--light-cyan);
+    box-shadow: 0 0 5px rgba(98, 159, 173, 0.3);
+}
+
+/* --- TABLICE --- */
+.posudbe-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.posudbe-table th {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    padding: 15px;
+    text-align: left;
+    font-weight: 400;
+}
+
+.posudbe-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.status-aktivno {
+    color: #856404;
+    background-color: #fff3cd;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-vraceno {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* --- MODAL --- */
 .modal {
 	display: none;
 	position: fixed;
@@ -94,17 +263,17 @@ input {
 }
 
 .modal-content {
-	background-color: white;
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 30px;
+    width: 400px;
+    border: none;
 	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 300px;
-	border-radius: 8px;
 	position: relative;
 }
 
 .close {
-	color: #aaa;
+    transition: color 0.3s;
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
@@ -112,68 +281,5 @@ input {
 }
 
 .close:hover {
-	color: black;
-}
-
-.btn-delete {
-	background-color: #dc3545 !important;
-}
-
-.btn-edit {
-	background-color: #ffc107;
-	color: black;
-}
-
-.btn-save, .btn-return {
-	background-color: #28a745;
-	margin-top: 10px;
-	padding: 10px;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-}
-
-.btn-return {
-	margin-top: 0;
-}
-
-.btn-save:hover, .btn-return:hover {
-	opacity: 0.9;
-}
-
-#spremiBtn {
-	padding: 10px;
-	margin: 10px 0;
-	cursor: pointer;
-}
-
-.posudbe-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: white;
-}
-
-.posudbe-table th, .posudbe-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.posudbe-table th { background-color: #f8f9fa; }
-
-.status-aktivno {
-    color: #856404;
-    background-color: #fff3cd;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.9em;
-}
-
-.status-vraceno {
-    color: #155724;
-    background-color: #d4edda;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.9em;
+    color: var(--danger);
 }
