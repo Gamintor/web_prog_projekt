@@ -10,14 +10,29 @@ $book_title = $input['book_title'];
 $user_name = $input['user_name'];
 $current_qty = $input['current_qty'];
 
+$posudbeJSON = sendToFirebase(FIREBASE_URL . "posudbe.json");
+$svePosudbe = json_decode($posudbeJSON, true);
+
+if($svePosudbe) {
+    foreach($svePosudbe as $p) {
+        if($p['korisnik'] === $user_name && $p['knjiga_id'] === $book_id && $p['status'] === 'aktivno') {
+            echo json_encode([
+                    "status" => "error", 
+                    "message" => "Greška: Već imate posuđenu ovu knjigu!"
+            ]);
+            exit;
+        }
+    }
+}
+
 if ($current_qty > 0) {
-    // 1. Ažuriraj količinu knjige (PATCH metoda - mijenja samo poslane podatke)
+    // Ažuriraj količinu knjige (PATCH metoda - mijenja samo poslane podatke)
     $nova_kolicina = $current_qty - 1;
     $updateData = ["kolicina" => $nova_kolicina];
 
     sendToFirebase(FIREBASE_URL . "knjige/$book_id.json", 'PATCH', $updateData);
 
-    // 2. Kreiraj zapis u LOG tablici (posudbe)
+    // Kreiraj zapis u LOG tablici (posudbe)
     $logData = [
         "knjiga_id" => $book_id,
         "naslov" => $book_title,

@@ -63,8 +63,6 @@ function ucitajSvePosudbe() {
 			data.forEach(p => {
 				const tr = document.createElement('tr');
 				const jeAktivna = p.status === 'aktivno';
-				console.log(`aktivna: ${jeAktivna}`);
-				console.log(p);
 				
 				tr.innerHTML = `
 					<td>${p.korisnik}</td>
@@ -74,7 +72,7 @@ function ucitajSvePosudbe() {
 						<span class="${jeAktivna ? 'status-aktivno' : 'status-vraceno'}">${p.status || 'aktivno'}</span>
 					</td>
 					<td>
-						${jeAktivna ? `<button class="btn-save" onClick="evidentirajPovrat('${p.id}', '${p.knjiga_id}')">Vrati</button>` : '-'}
+						${jeAktivna ? `<button class="btn-return" onClick="evidentirajPovrat('${p.id}', '${p.knjiga_id}', true)">Vrati</button>` : '-'}
 					</td>
 				`;
 				lista.appendChild(tr);
@@ -82,7 +80,7 @@ function ucitajSvePosudbe() {
 		});
 }
 
-function evidentirajPovrat(loanID, bookID) {
+function evidentirajPovrat(loanID, bookID, isAdmin = false) {
 	if(!confirm("Potvrdi povrat knjige?")) return;
 
 	fetch('api/vrati_knjigu.php', {
@@ -93,7 +91,11 @@ function evidentirajPovrat(loanID, bookID) {
 	.then(res => res.json())
 	.then(data => {
 		alert(data.message);
-		ucitajSvePosudbe();
+		if(isAdmin) {
+			ucitajSvePosudbe();
+		} else {
+			prikaziMojePosudbe();
+		}
 	});
 }
 
@@ -345,16 +347,22 @@ function prikaziMojePosudbe() {
 				lista.innerHTML = '<tr><td colspan="3">Nemate aktivnih posudbi!</td></tr>';
 				return;
 			}
-
+			
 			data.forEach(p => {
 				const tr = document.createElement('tr');
 				const naslov = p.naslov;
 				const statusKlasa = p.status === 'aktivno' ? 'status-aktivno' : 'status-vraceno';
-
+				
 				tr.innerHTML = `
 					<td>${naslov}</td>
 					<td>${new Date(p.datum).toLocaleDateString('hr-HR')}</td>
-				    <td><span class="${statusKlasa}">${p.status || 'aktivno'}</span></td>
+				    <td><span class="${statusKlasa}">${p.status}</span></td>
+					<td>
+						${p.status === 'aktivno' ? 
+							`<button class="btn-return" onclick="evidentirajPovrat('${p.id}', '${p.knjiga_id}')">Vrati Knjigu</button>` :
+							`Vraćeno ${p.datum_povrata ? new Date(p.datum_povrata).toLocaleDateString('hr-HR') : ''}`
+						}
+					</td>
 				`;
 				lista.appendChild(tr);
 			});
