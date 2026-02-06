@@ -24,11 +24,9 @@ if (isset($input['email']) && isset($input['password']) && isset($input['ime']))
     $noviKorisnik = [
         "ime" => $input['ime'],
         "email" => $input['email'],
-        "password" => $input['password'], // U stvarnosti hashirajte ovo (password_hash)!
-        "role" => "clan" // Defaultna uloga
+        "password" => $input['password'],
+        "role" => "clan"
     ];
-
-    // Ako želite stvoriti Admina, ručno u bazi promijenite "role" u "admin" kasnije
 
     $response = sendToFirebase(FIREBASE_URL . 'users.json', 'POST', $noviKorisnik);
     echo json_encode(["status" => "success", "message" => "Registracija uspješna!"]);

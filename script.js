@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('add-book-form').addEventListener('submit', dodajKnjigu);
 });
 
-// --- NAVIGACIJA I PRIKAZ ---
+// NAVIGACIJA I PRIKAZ
 
 function sakrijSve() {
 	document.getElementById('view-login').style.display = 'none';
@@ -104,7 +104,6 @@ function azurirajNavigaciju() {
 	const isLogged = loggedUser !== null;
 	const isAdmin = isLogged && loggedUser.role === 'admin';
 
-	// Toggle linkova
 	document.getElementById('nav-login').style.display = isLogged ? 'none' : 'block';
 	document.getElementById('nav-register').style.display = isLogged ? 'none' : 'block';
 
@@ -113,7 +112,7 @@ function azurirajNavigaciju() {
 	document.getElementById('nav-posudbe').style.display = isLogged && !isAdmin ? 'block' : 'none';
 	document.getElementById('nav-admin').style.display = isAdmin ? 'block' : 'none';
 
-	// User info
+	// Info o korisniku
 	document.getElementById('user-display').style.display = isLogged ? 'block' : 'none';
 	if (isLogged) {
 		document.getElementById('current-user-name').innerText = loggedUser.ime + ' (' + loggedUser.role + ')';

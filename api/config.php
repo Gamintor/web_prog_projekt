@@ -19,8 +19,6 @@ function sendToFirebase($url, $method = 'GET', $data = null)
     }
 
     $response = curl_exec($curl);
-    // curl_close($curl);
-    // curl_setopt($curl, CURLOPT_FORBID_REUSE, TRUE);
 
     return $response;
 }
