@@ -26,7 +26,7 @@ if($svePosudbe) {
 }
 
 if ($current_qty > 0) {
-    // Ažuriraj količinu knjige (PATCH metoda - mijenja samo poslane podatke)
+    // Ažuriraj količinu knjige
     $nova_kolicina = $current_qty - 1;
     $updateData = ["kolicina" => $nova_kolicina];
 

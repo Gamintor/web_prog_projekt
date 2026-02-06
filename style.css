@@ -1,4 +1,4 @@
-/* --- DEFINICIJA BOJA I FONTA --- */
+/*  DEFINICIJA BOJA I FONTA  */
 :root {
     --primary-dark: #0C2C55;
     --accent-teal: #296374;
@@ -282,4 +282,39 @@ input:focus {
 
 .close:hover {
     color: var(--danger);
+}
+
+/* style.css dodatak za dokumentaciju */
+.doc-section {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.doc-section a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.doc-section a:hover {
+    color: var(--light-cyan);
+    transform: translateY(-2px);
+}
+
+.doc-section h2 {
+    color: var(--accent-teal);
+    border-bottom: 1px solid var(--bg-cream);
+}
+
+.doc-section ul {
+    padding-left: 20px;
+}
+
+.doc-section li {
+    margin-bottom: 10px;
 }
